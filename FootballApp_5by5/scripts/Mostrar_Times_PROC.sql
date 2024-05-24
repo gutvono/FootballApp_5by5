@@ -1,0 +1,5 @@
+CREATE OR ALTER PROC Mostrar_Times
+AS
+BEGIN
+	SELECT * FROM Times;
+END

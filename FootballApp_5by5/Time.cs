@@ -21,30 +21,63 @@ namespace FootballApp_5by5
             DataCriacao = d;
         }
 
+        public Time() { }
+
         public void CadastrarTime(SqlConnection conexao)
         {
-            using (conexao)
+            try
             {
-                try
-                {
-                    conexao.Open();
-                    SqlCommand comando = new("Cadastrar_Time", conexao);
-                    comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.Add("@Nome", SqlDbType.VarChar, 50).Value = Nome;
-                    comando.Parameters.Add("@Apelido", SqlDbType.VarChar, 20).Value = Apelido;
-                    comando.Parameters.Add("@DataCriacao", SqlDbType.Date).Value = DataCriacao;
-                    comando.ExecuteNonQuery();
-                } catch (Exception e)
-                {
-                    Console.WriteLine("Ocorreu um erro ao cadastrar o time:");
-                    Console.WriteLine(e);
-                }
-                finally
-                {
-                    Console.WriteLine("Time cadastrado com sucesso.");
-                    conexao.Close();
-                }
+                conexao.Open();
+                SqlCommand comando = new("Cadastrar_Time", conexao);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Nome", SqlDbType.VarChar, 50).Value = Nome;
+                comando.Parameters.Add("@Apelido", SqlDbType.VarChar, 20).Value = Apelido;
+                comando.Parameters.Add("@DataCriacao", SqlDbType.Date).Value = DataCriacao;
+                comando.ExecuteNonQuery();
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ocorreu um erro ao cadastrar o time:");
+                Console.WriteLine(e);
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+            }
+            finally
+            {
+                Console.WriteLine("Time cadastrado com sucesso.");
+                conexao.Close();
+            }
+        }
+
+        public void MostrarTime(SqlConnection conexao)
+        {
+            conexao.Open();
+            SqlCommand comando = new("Mostrar_Times", conexao);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.ExecuteNonQuery();
+            using SqlDataReader reader = comando.ExecuteReader();
+            reader.Read();
+            Console.WriteLine($"A pior defesa do campeonato é do time {reader.GetString(1)}, que levou {reader.GetInt32(8)} gols.");
+            conexao.Close();
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
+        }
+
+        public int MostrarQtdTimes(SqlConnection conexao)
+        {
+            conexao.Open();
+            SqlCommand comando = new("Mostrar_Times", conexao);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.ExecuteNonQuery();
+
+            int contador = 0;
+            using SqlDataReader reader = comando.ExecuteReader();
+            while (reader.Read())
+            {
+                contador++;
+            }
+            conexao.Close();
+            return contador;
         }
     }
 }
