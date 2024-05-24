@@ -20,6 +20,7 @@ BEGIN
 				GolsFeitos = GolsFeitos + @GolsTimeCasa,
 				GolsSofridos = GolsSofridos + @GolsTimeFora
 			WHERE IdTime = @IdTimeCasa;
+			
 
 			UPDATE Classificacao
 			SET 
@@ -69,6 +70,15 @@ BEGIN
 			WHERE IdTime = @IdTimeFora;
 		END
 
+	UPDATE Classificacao
+	SET 
+		PartidaMaisGols = @GolsTimeCasa
+	WHERE IdTime = @IdTimeCasa AND PartidaMaisGols < @GolsTimeCasa
+
+	UPDATE Classificacao
+	SET 
+		PartidaMaisGols = @GolsTimeFora
+	WHERE IdTime = @IdTimeFora AND PartidaMaisGols < @GolsTimeFora
 
 	SELECT * FROM Classificacao
 	ORDER BY Pontos DESC;

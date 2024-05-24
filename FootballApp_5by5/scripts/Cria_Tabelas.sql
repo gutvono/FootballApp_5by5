@@ -35,6 +35,7 @@ CREATE TABLE Classificacao
 	SaldoGols INT NOT NULL,
 	GolsFeitos INT NOT NULL,
 	GolsSofridos INT NOT NULL,
+	PartidaMaisGols INT NOT NULL,
 
 	CONSTRAINT PkClassificacao PRIMARY KEY (IdTime),
 	CONSTRAINT FkTime FOREIGN KEY (IdTime) REFERENCES Times(Id)

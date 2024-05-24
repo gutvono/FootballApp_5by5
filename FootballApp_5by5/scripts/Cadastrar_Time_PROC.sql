@@ -12,6 +12,6 @@ BEGIN
 	SET @IdTime = (SELECT Id FROM Times WHERE Nome = @Nome);
 
 	INSERT INTO Classificacao
-	VALUES (@IdTime, @Apelido, 1, 0, 0, 0, 0, 0, 0, 0);
+	VALUES (@IdTime, @Apelido, 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
 END;
