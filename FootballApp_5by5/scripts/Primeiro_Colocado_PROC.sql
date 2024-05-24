@@ -1,0 +1,5 @@
+CREATE OR ALTER PROC Primeiro_Colocado
+AS
+BEGIN
+	SELECT TOP 1 * FROM Classificacao ORDER BY Pontos DESC
+END

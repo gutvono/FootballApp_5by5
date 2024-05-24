@@ -1,0 +1,5 @@
+CREATE OR ALTER PROC Todas_Partidas
+AS
+BEGIN
+	SELECT * FROM Jogo ORDER BY Rodada ASC
+END

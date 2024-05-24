@@ -1,0 +1,5 @@
+CREATE OR ALTER PROC Jogo_Com_Mais_Gols
+AS
+BEGIN
+	SELECT TOP 1 * FROM Jogo ORDER BY GolsTimeCasa + GolsTimeFora DESC
+END

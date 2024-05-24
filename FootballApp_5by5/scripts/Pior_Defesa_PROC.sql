@@ -1,0 +1,5 @@
+CREATE OR ALTER PROC Pior_Defesa
+AS
+BEGIN
+	SELECT TOP 1 * FROM Classificacao ORDER BY GolsSofridos DESC
+END
